@@ -22,7 +22,7 @@ Last Updated: 03/23/15 by mvanvleet
 """
 
 import numpy as np
-from constants import ev2hartree
+from .constants import ev2hartree
 
 #Important Note: Our lab tends to use Be as a hack to indicate dummy/ghost atoms in
 # .xyz files (we rarely use Be as an actual element). Setting
@@ -288,7 +288,8 @@ def AtomicNumber(element_symbol):
     """Given an element symbol element_symbol as a string, returns the
     corresponding atomic number as an integer"""
     # Properly format element symbol:
-    element_symbol=str(element_symbol).translate(None,'0123456789').capitalize()
+    s=str(element_symbol)
+    element_symbol = ''.join(i for i in s if not i.isdigit()).capitalize()
     return symbol_to_atno[element_symbol]
 
 
@@ -382,7 +383,7 @@ def NameToSymbol(element_name):
     """
     names = [line[2] for line in element_data]
     symbols = [line[1] for line in element_data]
-    name_to_symbols = dict(zip(names, symbols))
+    name_to_symbols = dict(list(zip(names, symbols)))
 
     return name_to_symbols[element_name]
 
@@ -411,21 +412,21 @@ def ValenceElectrons(element):
 
 ######################### Testing  ########################################
 if __name__=='__main__':
-    print 'Atomic Number for Sr is ',AtomicNumber('Sr')
-    print 'Symbol for element 90 is ',Symbol(90)
-    print 'Element name for Cr is ',Name('Cr')
-    print 'Symbol for Lead is ',NameToSymbol('Lead')
-    print 'Atomic weight of Mg is ',Weight(12)
-    print 'Atomic weight of Li is ',Weight(3)
-    print 'Atomic weight of Be is ',Weight(4)
-    print 'Van der Waals radius of H is ',VdWRadius(1)
-    print 'Van der Waals radius of He is ',VdWRadius('He')
-    print 'Covalent radius of C is ',CovalentRadius(6)
-    print 'Covalent radius of Si is ',CovalentRadius('si')
-    print 'All covalent radii of Fe is ',CovalentRadius('Fe',upper_bound=False)
-    print 'Ionization Potential of Mg is ',IonizationPotential('Mg')
-    print 'Number of Valence electrons of He is ',ValenceElectrons('He')
-    print 'Number of Valence electrons of O is ',ValenceElectrons('O')
-    print 'Number of Valence electrons of Zn is ',ValenceElectrons('Zn')
+    print('Atomic Number for Sr is ',AtomicNumber('Sr'))
+    print('Symbol for element 90 is ',Symbol(90))
+    print('Element name for Cr is ',Name('Cr'))
+    print('Symbol for Lead is ',NameToSymbol('Lead'))
+    print('Atomic weight of Mg is ',Weight(12))
+    print('Atomic weight of Li is ',Weight(3))
+    print('Atomic weight of Be is ',Weight(4))
+    print('Van der Waals radius of H is ',VdWRadius(1))
+    print('Van der Waals radius of He is ',VdWRadius('He'))
+    print('Covalent radius of C is ',CovalentRadius(6))
+    print('Covalent radius of Si is ',CovalentRadius('si'))
+    print('All covalent radii of Fe is ',CovalentRadius('Fe',upper_bound=False))
+    print('Ionization Potential of Mg is ',IonizationPotential('Mg'))
+    print('Number of Valence electrons of He is ',ValenceElectrons('He'))
+    print('Number of Valence electrons of O is ',ValenceElectrons('O'))
+    print('Number of Valence electrons of Zn is ',ValenceElectrons('Zn'))
 
 ######################### End Testing  #####################################

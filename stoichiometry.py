@@ -1,4 +1,4 @@
-#!/home/ehermes/local/bin/python
+#!/usr/bin/env python
 """A module that contains functions for performing basic stoichiometric tasks.
 Includes the following functions:
     MolecularWeight(xyz_file)
@@ -6,8 +6,8 @@ Includes the following functions:
 Last Updated: 08/20/13 by mvanvleet
 """
 
-from chemistry import constants
-from chemistry import elementdata
+from . import constants
+from . import elementdata
 
 # Function to obtain molecular weight of a compound from a .xyz file
 def MolecularWeight(coordinates):
@@ -22,10 +22,10 @@ def MolecularWeight(coordinates):
     molecular_weight=0.00
     for element in elements:
         try:
-           atno=elementdata.AtomicNumber(element) 
+            atno=elementdata.AtomicNumber(element) 
         except KeyError:
-            raise KeyError, 'Error: Element name "'+str(element)+\
-                    '" not recognized. Check your .xyz file for errors.'
+            raise KeyError('Error: Element name "'+str(element)+\
+                    '" not recognized. Check your .xyz file for errors.')
         #(column 3 of element_data list contains molecular weight data)
         molecular_weight += elementdata.Weight(atno) 
     return molecular_weight
@@ -33,7 +33,8 @@ def MolecularWeight(coordinates):
 
 
 if __name__=='__main__':
-    from chemistry import io
-
-    coordinates=io.ReadCoordinates('test.xyz')
-    print MolecularWeight(coordinates)
+    from . import io
+    import os
+    pwd = os.path.dirname(os.path.abspath(__file__))
+    coordinates,title=io.ReadCoordinates('/'.join([pwd,'tests','test.xyz']))
+    print(MolecularWeight(coordinates))

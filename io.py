@@ -9,8 +9,8 @@ Includes the following functions:
 Last Updated: 04/27/15 by mvanvleet
 """
 
-import elementdata
-import constants 
+from . import elementdata
+from . import constants 
 
 ###########################################################################
 def ReadCoordinates(inputfile,bohr=False):

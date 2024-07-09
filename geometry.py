@@ -11,9 +11,9 @@ Last Updated: 11/04/14 by mvanvleet
 
 import numpy as np
 
-import io
-import stoichiometry
-import elementdata
+from . import io
+from . import stoichiometry
+from . import elementdata
 
 
 ###########################################################################
@@ -99,10 +99,10 @@ if __name__=='__main__':
     import sys
     try:
         for file in sys.argv[3:]:
-            print GetDistance(file,int(sys.argv[1]),int(sys.argv[2]),verbose=False)
+            print(GetDistance(file,int(sys.argv[1]),int(sys.argv[2]),verbose=False))
     except ValueError:
-        print 'Usage: $ geometry.py iatom1 iatom2 xyzfile1 [xyzfile2...xyfileN]'
-        print 'Indexing starts at zero.'
+        print('Usage: $ geometry.py iatom1 iatom2 xyzfile1 [xyzfile2...xyfileN]')
+        print('Indexing starts at zero.')
     if len(sys.argv) < 4:
-        print 'Usage: $ geometry.py iatom1 iatom2 xyzfile1 [xyzfile2...xyfileN]'
-        print 'Indexing starts at zero.'
+        print('Usage: $ geometry.py iatom1 iatom2 xyzfile1 [xyzfile2...xyfileN]')
+        print('Indexing starts at zero.')
